@@ -1,0 +1,98 @@
+//Quora db design 
+
+
+Rough Quora Db Design On Try one 
+
+
+user 
+id  name 
+
+comment 
+id content coment_id
+
+user_comment
+id user_id comment_id queston_id  
+
+question
+id content user_id 
+
+
+comment_question
+id comment_id question_id
+
+comment_question_likes
+id comment_question_id user_id 
+
+question_topic
+id question_id topic_id
+
+question_likes 
+id question_id user_id
+
+topics
+id name 
+
+topic_follow_user
+id topic_id followedBy 
+
+answer 
+id value user_id question_id 
+
+answer_likes
+id answer_id user_id
+
+user_follow 
+id user_id followedByUserId  
+
+
+
+Correct and Efficient Answer
+
+User 
+id => pk 
+name 
+email 
+password : encrypted
+
+
+
+Question 
+id => pk 
+title 
+desc 
+user_id => fk 
+
+likes 
+id-> pk 
+likeable_type -> enum (specify if like was made on comment or answer) 
+likeable_id 
+user_id -> fk 
+
+
+answer 
+id => pk 
+content -> 
+user_id => fk
+question_id -> fk 
+
+
+comment 
+id -> pk 
+content 
+commentable_type => enum to speicify comment 
+commentable_id -> fk 
+user_id -> fk 
+route_comment_id (additional to fetch nested commnets of a comment on ui by combining and union)
+
+
+topic
+id => pk 
+name 
+
+
+question_topic 
+id => pk 
+question_id => fk 
+topic_id ->fk 
+
+
