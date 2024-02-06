@@ -1,0 +1,94 @@
+Tables 
+
+City Table
++----+---------------+
+| id | name          |
++----+---------------+
+| 1  | New York       |
+| 2  | Los Angeles    |
+| 3  | Chicago        |
++----+---------------+
+
+Users Table
++---------+-------------+---------+------------+
+| user_id | name        | city_id | address_id |
++---------+-------------+---------+------------+
+| 101     | John Doe    | 1       | 201        |
+| 102     | Jane Smith  | 2       | 202        |
+| 103     | Bob Johnson | 3       | 203        |
+| 104     | Alice Brown | 1       | 204        |
++---------+-------------+---------+------------+
+
+Address Table
++-----+--------------+---------+
+| id  | street       | city_id |
++-----+--------------+---------+
+| 201 | 123 Main St   | 1       |
+| 202 | 456 Elm St    | 2       |
+| 203 | 789 Oak St    | 3       |
+| 204 | 567 Pine St   | 1       |
++-----+--------------+---------+
+
+
+
+Inner Join 
+
+Inner join on both tables gives us the common part of teh data or say intersection of data in both tables, 
+
+we will implementing join on address and city 
+
+
+Select address.id, address.street, city.name from address join city on address.city_id = city.id ;
+Inner Join Result 
++-----+--------------+---------------+
+| id  | street       | name          |
++-----+--------------+---------------+
+| 201 | 123 Main St   | New York      |
+| 202 | 456 Elm St    | Los Angeles   |
+| 203 | 789 Oak St    | Chicago       |
+| 204 | 567 Pine St   | New York      |
++-----+--------------+---------------+
+
+
+
+Left/Right outer Join 
+
+
+lets implement left outer join on address and table means here the result will be all data of address + common data of address and city table 
+
+
+select  from address left outer join city on address.city_id = city.id;
+
++-----+-----------------+---------+------+-------------+
+| id  | street          | city_id | id   | name        |
++-----+-----------------+---------+------+-------------+
+| 201 | 123 Main St     |       1 |    1 | New York    |
+| 202 | 456 Elm St      |       2 |    2 | Los Angeles |
+| 203 | 789 Oak St      |       3 |    3 | Chicago     |
+| 204 | 567 Pine St     |       1 |    1 | New York    |
+| 205 | 999 No Match St |    NULL | NULL | NULL        |
++-----+-----------------+---------+------+-------------+
+
+
+vice versa for right outer join 
+
+
+JOIN Multiple Tables together 
+
+
+
+JOIN Multiple Tables together 
+
+SELECT users.user_id, users.name, city.name AS city_name, address.street
+FROM users
+JOIN city ON users.city_id = city.id
+JOIN address ON users.address_id = address.id;
+
++---------+-------------+-----------+--------------+
+| user_id | name        | city_name | street       |
++---------+-------------+-----------+--------------+
+| 101     | John Doe    | New York  | 123 Main St  |
+| 102     | Jane Smith  | Los Angeles| 456 Elm St   |
+| 103     | Bob Johnson | Chicago   | 789 Oak St   |
+| 104     | Alice Brown | New York  | 567 Pine St  |
++---------+-------------+-----------+--------------+
