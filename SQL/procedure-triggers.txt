@@ -1,0 +1,53 @@
+USE product;
+DELIMITER #
+CREATE PROCEDURE showLimitOrders(IN ltn INT)
+BEGIN
+    SELECT * FROM orders LIMIT ltn;
+END #
+DELIMITER ;
+
+DELIMITER #
+CREATE PROCEDURE passingOrderNumberToOrderAndCounting(IN orderNo INT, OUT res int)
+BEGIN
+    SELECT count(*) into res FROM orders where order_id=orderNo;
+END #
+DELIMITER ;
+
+CALL showLimitOrders(3);
+call passingOrderNumberToOrderAndCounting(1001,@cnt);
+select cnt;
+
+DELIMITER $
+	create procedure proc()
+	begin 
+     declare x int;
+	 set x=1;
+     while x<=5 do
+     select x;
+     set x = x+1;
+     end while;
+     end $
+DELIMITER ;
+call proc();
+
+delimiter $
+create trigger logger
+	before insert on products
+		for each row
+			set @log = "Add New Product";
+	$
+delimiter ;
+
+set @log = "";
+
+delimiter $
+create trigger setPrice
+	before insert on products
+		for each row 
+			set New.unit_price = 20;
+		$
+delimiter ;
+        
+
+
+     
